@@ -1,5 +1,3 @@
-import os
-import time
 import pygame
 import pyvidplayer2
 
@@ -13,7 +11,7 @@ while True:
     pygame.display.update()
 
     try:
-        video = pyvidplayer2.Video(input('\033[97mFile: '))
+        video = pyvidplayer2.Video(input('File: '))
     except Exception as e:
         print(e)
         continue
@@ -22,7 +20,7 @@ while True:
     video.mute()
     
     try:
-        f = open(f'tr//trv//{video.name}.trv', 'xb')
+        f = open(f'{video.name}.trv', 'xb')
     except Exception as e:
         print(e)
         continue
