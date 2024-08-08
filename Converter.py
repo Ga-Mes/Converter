@@ -16,25 +16,22 @@ while True:
         print(e)
         continue
 
-    video.resize((width, height))
-    video.mute()
-    
     try:
         f = open(f'{video.name}.trv', 'xb')
     except Exception as e:
         print(e)
         continue
 
+    video.resize((width, height))
+    video.mute()
+
     while video.active:
         video.draw(screen, (0, 0), force_draw=True)
         pygame.display.update()
-        for my in range(0, height, 8):
-            for mx in range(0, width, 12):
-                for x in range(0, 6):
-                    for y in range(0, 8):
-                        c1 = screen.get_at((x + mx, y + my))
-                        c2 = screen.get_at((x + 6 + mx, y + my))
-                        f.write(bytes((*c1, *c2)))
+        for gy in range(0, height, 8):
+            for x in range(0, 6):
+                for y in range(0, 8):
+                    f.write(bytes([i for j in [screen.get_at((x + 6 * i, y + gy)) for i in range(32)] for i in j]))
     f.close()
 
 pygame.quit()
