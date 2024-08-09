@@ -31,7 +31,7 @@ while True:
         for gy in range(0, height, 8):
             for x in range(0, 6):
                 for y in range(0, 8):
-                    f.write(bytes([i for j in [screen.get_at((x + 6 * i, y + gy)) for i in range(32)] for i in j]))
+                    f.write(bytes([i for j in [screen.get_at((x + 6 * i, y + gy))[:3] for i in range(32)] for i in j]))
     f.close()
 
 pygame.quit()
