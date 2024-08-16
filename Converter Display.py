@@ -17,7 +17,7 @@ while True:
         continue
 
     try:
-        f = open(f'{video.name}.trv', 'xb')
+        f = open(f'{video.name}.tcvd', 'xb')
     except Exception as e:
         print(e)
         continue
