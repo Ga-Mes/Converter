@@ -6,6 +6,8 @@ width, height = 192, 192
 pygame.init()
 screen = pygame.display.set_mode((width, height), pygame.HIDDEN)
 
+clock = pygame.time.Clock()
+
 while True:
     screen.fill((0, 0, 0))
     pygame.display.update()
@@ -32,6 +34,7 @@ while True:
             for x in range(0, 6):
                 for y in range(0, 8):
                     f.write(bytes([i for j in [screen.get_at((x + 6 * i, y + gy))[:3] for i in range(width // 6)] for i in j]))
+        clock.tick(video.frame_rate)
     f.close()
 
 pygame.quit()
