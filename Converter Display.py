@@ -37,4 +37,6 @@ while True:
         clock.tick(video.frame_rate)
     f.close()
 
+    print(f'Recommended tick/sec: {round(width * height * video.frame_rate / (width / 6))}')
+
 pygame.quit()
