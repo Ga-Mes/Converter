@@ -19,7 +19,7 @@ while True:
         continue
 
     try:
-        f = open(f'Turing Complete//tcvd//{os.path.basename(path).split(".")[0]} ({width}-{height}).data', 'xb')
+        f = open(f'{os.path.basename(path).split(".")[0]} ({width}-{height}).data', 'xb')
     except Exception as e:
         print(e)
         continue
