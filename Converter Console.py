@@ -1,41 +1,35 @@
-import pygame
-import pyvidplayer2
-
-width, height = 80, 24
-
-pygame.init()
-screen = pygame.display.set_mode((width, height), pygame.HIDDEN)
-
-clock = pygame.time.Clock()
+import os.path
+import cv2
 
 while True:
-    screen.fill((0, 0, 0))
-    pygame.display.update()
+    path = input('File: ').replace('"', '')
+
+    if path == '!':
+        break
 
     try:
-        video = pyvidplayer2.Video(input('File: '))
+        video = cv2.VideoCapture(path)
     except Exception as e:
         print(e)
         continue
 
+    if video is None:
+        continue
+
     try:
-        f = open(f'{video.name}.tcvc', 'xb')
+        f = open(f'Turing Complete//tcvc//{os.path.basename(path).split(".")[0]}.data', 'xb')
     except Exception as e:
         print(e)
         continue
 
-    video.resize((width, height))
-    video.mute()
-
-    while video.active:
-        video.draw(screen, (0, 0), force_draw=True)
-        pygame.display.update()
+    while True:
+        success, image = video.read()
+        if not success:
+            break
+        image = cv2.resize(image, (80, 24))
         for y in range(24):
             for x in range(0, 80, 2):
-                f.write(bytes([*screen.get_at((x, y))[:3], *screen.get_at((x + 1, y))[:3]]))
-        clock.tick(video.frame_rate)
+                f.write(bytes((*tuple(image[y, x]), *tuple(image[y, x + 1]))))
     f.close()
 
-    print(f'Recommended tick/sec: {round(960 * video.frame_rate)}')
-
-pygame.quit()
+    print(f'Recommended tick/sec: {round(960 * video.get(cv2.CAP_PROP_FPS))}')
