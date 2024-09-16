@@ -17,7 +17,7 @@ while True:
         continue
 
     try:
-        f = open(f'Turing Complete//tcvc//{os.path.basename(path).split(".")[0]}.data', 'xb')
+        f = open(f'{os.path.basename(path).split(".")[0]}.data', 'xb')
     except Exception as e:
         print(e)
         continue
